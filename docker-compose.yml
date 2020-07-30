@@ -7,7 +7,7 @@ services:
     build:
       context: ./bootnode
     ports:
-      - 30301:30301/udp
+      - 30301:30301
     networks:
       chainnet:
         ipv4_address: 172.25.0.101 # The miners need to know the IP address later on
@@ -50,7 +50,7 @@ services:
      - eth-data-2:/root/.ethash
     networks:
       chainnet:
-        ipv4_address: 172.25.0.104
+        ipv4_address: 172.25.0.103
 
   geth-dev-node:
      hostname: geth-dev-node
@@ -67,7 +67,7 @@ services:
          password: word
      container_name: geth-node
      ports:
-       - 8545:8545
+       - 8545-8547:8545-8547
      healthcheck:
        test: wget http://localhost:8545
        interval: 2s

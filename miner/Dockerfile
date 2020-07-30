@@ -1,27 +1,18 @@
-FROM ubuntu:xenial
-
-RUN apt-get update \
-     && apt-get install -y wget software-properties-common \
-     && rm -rf /var/lib/apt/lists/*
+FROM ethereum/client-go:alltools-stable
 
 WORKDIR "/root"
 
-RUN add-apt-repository -y ppa:ethereum/ethereum
-
-ARG binary
-RUN apt-get update \
-     && apt-get install -y ethereum
-
 ARG password
 ARG privatekey
-RUN echo $password > ~/.accountpassword
-RUN echo $privatekey > ~/.privatekey
-ADD ./genesis.json ./genesis.json
+RUN echo $password > .accountpassword
+RUN echo $privatekey > .privatekey
+ADD ./genesis.json .
 RUN geth init genesis.json
-RUN geth account import --password ~/.accountpassword  ~/.privatekey
+RUN geth account import --password .accountpassword  .privatekey --nousb
 
 ENV address=""
 ENV bootnodeId=""
 ENV bootnodeIp=""
 
-CMD exec geth --bootnodes "enode://$bootnodeId@$bootnodeIp:30301" --networkid "6660001" --verbosity=4  --syncmode=full --mine --gasprice "0" --etherbase $address --unlock $address --password ~/.accountpassword
+
+CMD exec geth --bootnodes "enode://$bootnodeId@$bootnodeIp:30301" --networkid "6660001" --verbosity=4  --syncmode=full --mine --gasprice "0" --etherbase $address --unlock $address --password ~/.accountpassword --nousb  --nat extip:`hostname -i`
