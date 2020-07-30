@@ -4,4 +4,6 @@ WORKDIR "/root"
 
 ENV nodekeyhex=""
 
-CMD exec bootnode -nodekeyhex $nodekeyhex
+EXPOSE 30305
+
+CMD exec bootnode -nodekeyhex $nodekeyhex -verbosity 9 -addr :30305
