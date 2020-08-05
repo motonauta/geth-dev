@@ -19,3 +19,6 @@ The RPC Ports of the nodes are mapped to your localhost, the addresses are:
 * geth-dev-miner-1 : No RPC exposed
 * geth-dev-miner-2: No RPC exposed
 * geth-dev-node: [RPC http://localhost:8545](http://localhost:8545) and [GraphQL http://localhost:8547](http://localhost:8547)
+
+https://geth.ethereum.org/docs/interface/command-line-options
+[How to add new Sealer in Geth 1.6 Proof of Authority?](https://ethereum.stackexchange.com/a/15779/51565)
