@@ -23,6 +23,7 @@ services:
         password: pass
     volumes:
       - miner-1:/root/.ethash
+      - ./miner/genesis.json:/root/genesis.json:ro
     networks:
       chainnet:
         ipv4_address: 172.25.0.102 # The monitor needs to know this address
@@ -30,7 +31,6 @@ services:
   miner-2:
     depends_on:
       - bootnode
-      - miner-1
     environment:
       - address=0x3590aca93338b0721966a8d0c96ebf2c4c87c544 #derived from the private key which is passed in the args
       - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
@@ -42,14 +42,14 @@ services:
         password: word
     volumes:
      - miner-2:/root/.ethash
+     - ./miner/genesis.json:/root/genesis.json:ro
     networks:
       chainnet:
         ipv4_address: 172.25.0.103
 
-  public-node:
+  node:
      depends_on:
        - bootnode
-       - miner-2
      environment:
        - bootnodeId=76a8171707eca17647a47ca99ffd348927dfa60102792ea349a25d5192e61855be83b786e376276a306afcceea4ffd1c9c77e4370b417efc39f328a0d068004c #derived from the nodekeyhex of the bootnode
        - bootnodeIp=172.25.0.101
@@ -63,7 +63,8 @@ services:
        timeout: 5s
        retries: 30
      volumes:
-      - public-node:/root/.ethash
+      - node:/root/.ethash
+      - ./miner/genesis.json:/root/genesis.json:ro
      networks:
        chainnet:
          ipv4_address: 172.25.0.110
@@ -78,4 +79,4 @@ networks:
 volumes:
   miner-1:
   miner-2:
-  public-node:
+  node:
