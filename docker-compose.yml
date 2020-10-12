@@ -22,7 +22,7 @@ services:
         privatekey: df504d175ae63abf209bad9dda965310d99559620550e74521a6798a41215f46 # Please don't do something like this in production, okay?
         password: pass
     volumes:
-      - miner-1:/root/.ethash
+      - miner-1:/root/.ethereum
       - ./miner/genesis.json:/root/genesis.json:ro
     networks:
       chainnet:
@@ -41,7 +41,7 @@ services:
         privatekey: bc5b578e0dcb2dbf98dd6e5fe62cb5a28b84a55e15fc112d4ca88e1f62bd7c35
         password: word
     volumes:
-      - miner-2:/root/.ethash
+      - miner-2:/root/.ethereum
       - ./miner/genesis.json:/root/genesis.json:ro
     networks:
       chainnet:
@@ -63,7 +63,7 @@ services:
       timeout: 5s
       retries: 30
     volumes:
-      - node:/root/.ethash
+      - node:/root/.ethereum
       - ./miner/genesis.json:/root/genesis.json:ro
     networks:
       chainnet:
